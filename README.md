@@ -28,17 +28,6 @@ STOCK-PRICE-PREDICTION-USING-LSTM/
 ```
 
 
-
----
-
-## ✨ Features
-- 📊 Fetch historical stock data with **yfinance**  
-- 🧹 Clean and preprocess stock datasets  
-- ➕ Feature engineering with moving averages and other indicators  
-- 📁 Save ready-to-model CSV files for downstream LSTM training  
-
----
-
 ## ⚙️ Requirements
 
 - Python **3.9+**
