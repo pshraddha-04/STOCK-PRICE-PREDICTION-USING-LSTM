@@ -1,49 +1,95 @@
-## Stock Data Prep with SMA (for LSTM)
+# 📈 Stock Price Prediction using LSTM
 
-A minimal project that fetches Reliance stock data via yfinance, computes simple moving averages (SMA20/50/200), and saves a ready-to-model CSV. You can use the generated dataset later for LSTM or other forecasting models.
+This project aims to **predict stock prices using LSTM (Long Short-Term Memory)** deep learning models.  
+It includes data fetching, preprocessing, and preparation for training forecasting models.
 
-### Features
-- **Data download** from yfinance for `RELIANCE.NS` (last 5 years)
-- **Feature engineering**: SMA20, SMA50, SMA200 on Close prices
-- **Clean CSV output** for downstream modeling
+---
 
-### Requirements
-- Python 3.8+
-- Install dependencies:
+## 🏷️ Project Badges
+![Python](https://img.shields.io/badge/Python-3.9+-blue)  
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+---
+
+## 📂 Project Structure
 ```bash
-pip install -r requirement.txt
+STOCK-PRICE-PREDICTION-USING-LSTM/
+├── data/
+│   ├── microsoft_stock_raw.csv
+│   ├── microsoft_stock_clean.csv
+│
+├── scripts/
+│   └── msft_data_prep.py
+│
+├── requirements.txt
+├── .gitignore
+└── README.md
+
 ```
 
-If you prefer a virtual environment:
+
+
+---
+
+## ✨ Features
+- 📊 Fetch historical stock data with **yfinance**  
+- 🧹 Clean and preprocess stock datasets  
+- ➕ Feature engineering with moving averages and other indicators  
+- 📁 Save ready-to-model CSV files for downstream LSTM training  
+
+---
+
+## ⚙️ Requirements
+
+- Python **3.9+**
+
+Install dependencies:
+```bash
+pip install -r requirements.txt
+
+```
+---
+
+### 📦 Main Libraries
+- 📈 **yfinance** → Fetch historical stock data  
+- 🐼 **pandas** → Data handling & preprocessing  
+- 🔢 **numpy** → Numerical computations  
+- 📊 **matplotlib** → Visualization 
+
+---
+
+🚀 How to Run
+
+1.Clone the repository
 
 ```bash
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirement.txt
+git clone https://github.com/<your-username>/STOCK-PRICE-PREDICTION-USING-LSTM.git
+cd STOCK-PRICE-PREDICTION-USING-LSTM
 ```
 
-### Project Structure
-- `DATA.py`: Script to download data and create SMA features
-- `Reliance_with_SMA.csv`: Generated dataset with SMA features (output of `DATA.py`)
-- `requirement.txt`: Python dependencies
-
-### How to Run
-Run:
+2.Create a virtual environment
 
 ```bash
-python DATA.py
+python -m venv venv
+# On Linux/Mac
+source venv/bin/activate
+# On Windows
+venv\Scripts\activate
 ```
 
-Notes:
-- `Reliance_with_SMA.csv` will be created in the project root after a successful run.
-- If you face network timeouts from yfinance, simply re-run. You can also try a shorter period (e.g., change `period="5y"` to `period="2y"` in `DATA.py`) or ensure a stable connection.
+3.Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-### Next Steps (Optional)
-- Use the generated CSV to train an LSTM model
-- Add scaling, train/test split, and evaluation scripts
-- Experiment with additional technical indicators
+4.Run the script to fetch Microsoft stock data
+```bash
+python scripts/msft_data_prep.py
 
-### Disclaimer
-For educational purposes only; not financial advice.
+```
+---
+## ⚠️ Note
 
+Do not commit your virtual environment (venv/).
+
+It is already included in .gitignore.
