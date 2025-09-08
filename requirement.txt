@@ -1,0 +1,11 @@
+# Data handling
+pandas
+numpy
+
+
+
+# Data acquisition
+yfinance
+
+
+
