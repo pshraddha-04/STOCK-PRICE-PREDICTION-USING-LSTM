@@ -5,13 +5,8 @@ numpy==1.26.4
 # Data Acquisition
 yfinance==0.2.65
 
-# Visualization
-matplotlib==3.10.6
 
-# Model Development & Evaluation
-tensorflow==2.20.0
-scikit-learn==1.7.1
 
-# Deployment
-flask==3.1.2
-joblib==1.5.
+
+
+.

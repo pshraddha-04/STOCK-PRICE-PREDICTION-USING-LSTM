@@ -1,7 +1,7 @@
 # 📈 Stock Price Prediction using LSTM
 
 This project aims to **predict stock prices using LSTM (Long Short-Term Memory)** deep learning models.  
-It includes data fetching, preprocessing, and preparation for training forecasting models.
+
 
 ---
 
@@ -43,11 +43,6 @@ STOCK-PRICE-PREDICTION-USING-LSTM/
 
 - Python **3.9+**
 
-Install dependencies:
-```bash
-pip install -r requirements.txt
-
-```
 ---
 
 ### 📦 Main Libraries
