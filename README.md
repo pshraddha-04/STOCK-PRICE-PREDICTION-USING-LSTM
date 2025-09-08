@@ -21,7 +21,7 @@ STOCK-PRICE-PREDICTION-USING-LSTM/
 ├── scripts/
 │   └── msft_data_prep.py
 │
-├── requirements.txt
+├── requirement.txt
 ├── .gitignore
 └── README.md
 
@@ -74,7 +74,7 @@ venv\Scripts\activate
 
 3.Install dependencies
 ```bash
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 
 4.Run the script to fetch Microsoft stock data
