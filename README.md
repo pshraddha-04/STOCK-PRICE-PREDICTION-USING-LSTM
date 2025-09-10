@@ -35,10 +35,24 @@ STOCK-PRICE-PREDICTION-USING-LSTM/
 ---
 
 ### 📦 Main Libraries
-- 📈 **yfinance** → Fetch historical stock data  
+
+#### 📊 Data Handling
 - 🐼 **pandas** → Data handling & preprocessing  
 - 🔢 **numpy** → Numerical computations  
-- 📊 **matplotlib** → Visualization 
+
+#### 📈 Data Acquisition
+- 📈 **yfinance** → Fetch historical stock data  
+
+#### 📊 Visualization
+- 📊 **matplotlib** → Visualization  
+
+#### 🤖 Model Development & Evaluation
+- 🧠 **tensorflow** → Deep learning model development  
+- ⚙️ **scikit-learn** → Model evaluation & preprocessing  
+
+#### 🚀 Deployment
+- 🌐 **flask** → Web deployment  
+- 💾 **joblib** → Model saving & loading   
 
 ---
 
