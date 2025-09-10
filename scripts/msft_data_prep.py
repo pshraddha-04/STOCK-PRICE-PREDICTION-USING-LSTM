@@ -63,3 +63,26 @@ data.index.name = "Date"
 clean_file_path = os.path.join(folder_path, "microsoft_stock_clean.csv")
 data.to_csv(clean_file_path, index=True)
 print(f"\nCleaned Microsoft stock data saved to: {clean_file_path}")
+# Step 7: Calculate Simple Moving Averages (SMA)
+data["SMA_20"] = data["Close"].rolling(window=20).mean()
+data["SMA_50"] = data["Close"].rolling(window=50).mean()
+
+# Step 8: Save dataset with SMA columns
+sma_file_path = os.path.join(folder_path, "microsoft_stock_with_sma_20_50.csv")
+data.to_csv(sma_file_path, index=True)
+print(f"\nMicrosoft stock data with SMA saved to: {sma_file_path}")
+
+import matplotlib.pyplot as plt
+
+# Step 9: Plot Close price with SMA lines
+plt.figure(figsize=(12, 6))
+plt.plot(data.index, data["Close"], label="Close Price", linewidth=1)
+plt.plot(data.index, data["SMA_20"], label="20-Day SMA", linewidth=1.2)
+plt.plot(data.index, data["SMA_50"], label="50-Day SMA", linewidth=1.2)
+
+plt.title("Microsoft Stock Price with 20 & 50 Day SMA")
+plt.xlabel("Date")
+plt.ylabel("Price (USD)")
+plt.legend()
+plt.grid(True)
+plt.show()
