@@ -86,3 +86,39 @@ plt.ylabel("Price (USD)")
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# Step 10: Calculate Relative Strength Index (RSI)
+window_length = 14
+delta = data["Close"].diff()
+gain = delta.where(delta > 0, 0)
+loss = -delta.where(delta < 0, 0)
+
+avg_gain = gain.rolling(window=window_length, min_periods=1).mean()
+avg_loss = loss.rolling(window=window_length, min_periods=1).mean()
+
+rs = avg_gain / avg_loss
+data["RSI_14"] = 100 - (100 / (1 + rs))
+
+# Step 11: Calculate Bollinger Bands
+bb_window = 20
+data["BB_Middle"] = data["Close"].rolling(window=bb_window).mean()
+data["BB_Std"] = data["Close"].rolling(window=bb_window).std()
+data["BB_Upper"] = data["BB_Middle"] + (2 * data["BB_Std"])
+data["BB_Lower"] = data["BB_Middle"] - (2 * data["BB_Std"])
+data.drop(columns=["BB_Std"], inplace=True)  # keep dataset clean
+
+# Step 12: Calculate MACD (12-26 EMA with 9 signal line)
+ema_short = data["Close"].ewm(span=12, adjust=False).mean()
+ema_long = data["Close"].ewm(span=26, adjust=False).mean()
+data["MACD"] = ema_short - ema_long
+data["MACD_Signal"] = data["MACD"].ewm(span=9, adjust=False).mean()
+data["MACD_Hist"] = data["MACD"] - data["MACD_Signal"]
+
+# Save updated dataset (overwrite old SMA file first)
+data.to_csv(sma_file_path, index=True)
+print(f"\nUpdated dataset with SMA, RSI, Bollinger Bands, and MACD saved to: {sma_file_path}")
+
+# Rename the file to a more descriptive name
+final_file_path = os.path.join(folder_path, "microsoft_data_SMA_RSI_BBands_MACD.csv")
+os.rename(sma_file_path, final_file_path)
+print(f"File renamed to: {final_file_path}")
