@@ -1,8 +1,3 @@
-"""
-Linear regression baseline for stock prices plus a small walk-forward check.
-Kept intentionally simple; no framework magic or unnecessary abstractions.
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,8 +6,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings('ignore')
-from typing import Optional
-
 
 def load_and_prepare_data(file_path: str) -> pd.DataFrame:
     df = pd.read_csv(file_path)
@@ -21,7 +14,6 @@ def load_and_prepare_data(file_path: str) -> pd.DataFrame:
     df = df.dropna()
     return df
 
-
 def create_lag_features(df: pd.DataFrame, target_col: str = 'Close', lags: int = 5) -> pd.DataFrame:
     for i in range(1, lags + 1):
         df[f'{target_col}_lag_{i}'] = df[target_col].shift(i)
@@ -29,7 +21,6 @@ def create_lag_features(df: pd.DataFrame, target_col: str = 'Close', lags: int =
         if col in df.columns:
             df[f'{col}_lag_1'] = df[col].shift(1)
     return df
-
 
 def linear_regression_baseline(df: pd.DataFrame, target_col: str = 'Close', test_size: float = 0.2):
     feature_cols = [col for col in df.columns if 'lag' in col]
@@ -65,7 +56,7 @@ def calculate_metrics(actual, predicted, model_name: str):
 
 
 def plot_predictions(actual, predicted, dates, model_name: str):
-    plt.figure(figsize=(15, 8))
+    plt.figure(figsize=(12, 7))
     plt.plot(dates, actual, label='Actual Price', linewidth=2, alpha=0.8)
     plt.plot(dates, predicted, label=f'{model_name} Prediction', linewidth=2, alpha=0.8)
     plt.title(f'Stock Price Prediction: {model_name} Baseline Model', fontsize=16, fontweight='bold')
@@ -108,8 +99,7 @@ def walk_forward_validation(df: pd.DataFrame, target_col: str = "Close", n_lags:
 
 
 def main():
-    # Keep output concise; just print the essential results
-    print("Linear Regression Baseline")
+    print("--- Linear Regression Baseline ---")
 
     data_path = "data/microsoft_data_SMA_RSI_BBands_MACD.csv"
     df = load_and_prepare_data(data_path)
@@ -119,7 +109,7 @@ def main():
     linear_pred, linear_actual, linear_dates, linear_model = linear_regression_baseline(df_with_lags)
     linear_metrics = calculate_metrics(linear_actual, linear_pred, "Linear Regression")
 
-    # Feature importance prepared but not printed
+    # Feature importance 
     feature_cols = [col for col in df_with_lags.columns if 'lag' in col]
     feature_importance = pd.DataFrame({'Feature': feature_cols, 'Coefficient': linear_model.coef_}).sort_values('Coefficient', key=abs, ascending=False)
 
@@ -137,7 +127,6 @@ def main():
         'linear_metrics': linear_metrics,
         'feature_importance': feature_importance
     }
-
 
 if __name__ == "__main__":
     results = main()
