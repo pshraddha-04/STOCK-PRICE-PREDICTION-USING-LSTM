@@ -14,4 +14,4 @@ scikit-learn==1.7.1
 
 # Deployment
 flask==3.1.2
-joblib==1.5.
+joblib==1.5.2
