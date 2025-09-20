@@ -1,0 +1,2 @@
+lstm_units,dropout,dense_units,learning_rate,batch_size
+150,0.2,50,0.005,64

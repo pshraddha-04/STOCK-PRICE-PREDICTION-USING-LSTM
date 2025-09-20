@@ -3,14 +3,6 @@ import os
 import joblib
 import tensorflow as tf
 import random
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-import math
-import pandas as pd
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import EarlyStopping
 
 # Reproducibility settings
 SEED = 42
@@ -21,6 +13,15 @@ random.seed(SEED)
 np.random.seed(SEED)
 tf.random.set_seed(SEED)
 
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import math
+import pandas as pd
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping
+
 # Paths
 DATA_DIR = "data"
 X_TRAIN_PATH = os.path.join(DATA_DIR, "X_train.npy")
@@ -28,6 +29,10 @@ y_TRAIN_PATH = os.path.join(DATA_DIR, "y_train.npy")
 X_TEST_PATH = os.path.join(DATA_DIR, "X_test.npy")
 y_TEST_PATH = os.path.join(DATA_DIR, "y_test.npy")
 TARGET_SCALER_PATH = os.path.join(DATA_DIR, "scalers", "Close_scaler.pkl")
+
+BEST_MODEL_DIR = "models"
+os.makedirs(BEST_MODEL_DIR, exist_ok=True)
+BEST_MODEL_PATH = os.path.join(BEST_MODEL_DIR, "best_lstm_model.keras")  # path to save best model
 
 # Load data
 X_train = np.load(X_TRAIN_PATH)
@@ -61,6 +66,8 @@ def build_model(lstm_units, dropout, dense_units, learning_rate):
 
 # Random Search Loop
 results = []
+best_rmse = float("inf")  # track best RMSE
+best_params_saved = None   # store best hyperparameters
 
 for trial in range(N_TRIALS):
     # Randomly pick parameters
@@ -104,6 +111,14 @@ for trial in range(N_TRIALS):
         "mae": mae,
         "r2": r2
     })
+    
+    # Save model if this trial is best so far
+    if rmse < best_rmse:
+        best_rmse = rmse
+        best_params_saved = params.copy() 
+        model.save(BEST_MODEL_PATH)
+        print(f"✅ New best model saved at {BEST_MODEL_PATH} with RMSE={best_rmse:.4f}")
+
 
 # results
 results_df = pd.DataFrame(results)
@@ -111,4 +126,11 @@ results_path = os.path.join(DATA_DIR, "random_search_results.csv")
 results_df.to_csv(results_path, index=False)
 
 print("\n Random Search complete. Results saved to:", results_path)
+
+# Save best hyperparameters for reference
+best_params_df = pd.DataFrame([best_params_saved])
+best_params_path = os.path.join(DATA_DIR, "best_hyperparameters.csv")
+best_params_df.to_csv(best_params_path, index=False)
+print(f"Best hyperparameters saved to: {best_params_path}")
+
 print(results_df.sort_values(by="rmse").head(5))  # show best 5 trials
