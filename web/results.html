@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - StockPredict</title>
+    <link rel="stylesheet" href="css/results_styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="dashboard.html" class="navbar-brand">StockPredict</a>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <div class="header-icon"></div>
+                <h1>Prediction Results</h1>
+                <p>MSFT Stock Price Prediction for Next 30 Days</p>
+            </div>
+
+            <div class="results-section">
+                <!-- Chart Section -->
+                <div class="chart-section">
+                    <div class="chart-container">
+                        <svg class="prediction-chart" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background -->
+                            <rect width="600" height="400" fill="url(#chartBg)" rx="15"/>
+                            
+                            <defs>
+                                <linearGradient id="chartBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="actualLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#22c55e" />
+                                    <stop offset="100%" style="stop-color:#16a34a" />
+                                </linearGradient>
+                                <linearGradient id="predictedLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#3b82f6" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Grid -->
+                            <g stroke="rgba(0,0,0,0.1)" stroke-width="1">
+                                <line x1="80" y1="60" x2="520" y2="60"/>
+                                <line x1="80" y1="120" x2="520" y2="120"/>
+                                <line x1="80" y1="180" x2="520" y2="180"/>
+                                <line x1="80" y1="240" x2="520" y2="240"/>
+                                <line x1="80" y1="300" x2="520" y2="300"/>
+                                
+                                <line x1="80" y1="60" x2="80" y2="300"/>
+                                <line x1="190" y1="60" x2="190" y2="300"/>
+                                <line x1="300" y1="60" x2="300" y2="300"/>
+                                <line x1="410" y1="60" x2="410" y2="300"/>
+                                <line x1="520" y1="60" x2="520" y2="300"/>
+                            </g>
+                            
+                            <!-- Actual Price Line -->
+                            <path d="M80,250 L130,240 L180,220 L230,200 L280,190 L300,185" 
+                                  stroke="url(#actualLine)" stroke-width="3" fill="none" 
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <!-- Predicted Price Line -->
+                            <path d="M300,185 L350,175 L400,165 L450,155 L500,145 L520,140" 
+                                  stroke="url(#predictedLine)" stroke-width="3" fill="none" 
+                                  stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,5"/>
+                            
+                            <!-- Labels -->
+                            <text x="300" y="35" text-anchor="middle" fill="#1e293b" font-family="Inter" font-size="18" font-weight="700">MSFT Stock Price Prediction</text>
+                            <text x="80" y="325" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Past</text>
+                            <text x="190" y="325" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Week 1</text>
+                            <text x="300" y="325" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Today</text>
+                            <text x="410" y="325" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Week 2</text>
+                            <text x="520" y="325" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Week 4</text>
+                            
+                            <!-- Legend -->
+                            <g transform="translate(80, 350)">
+                                <line x1="0" y1="0" x2="20" y2="0" stroke="#22c55e" stroke-width="3"/>
+                                <text x="25" y="5" fill="#64748b" font-family="Inter" font-size="12">Actual Price</text>
+                                <line x1="120" y1="0" x2="140" y2="0" stroke="#3b82f6" stroke-width="3" stroke-dasharray="5,5"/>
+                                <text x="145" y="5" fill="#64748b" font-family="Inter" font-size="12">Predicted Price</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Metrics Section -->
+                <div class="metrics-section">
+                    <div class="metric-card">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-content">
+                            <h3>Current Price</h3>
+                            <div class="metric-value">$342.85</div>
+                            <div class="metric-change positive">+2.4%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">🎯</div>
+                        <div class="metric-content">
+                            <h3>Predicted Price</h3>
+                            <div class="metric-value">$358.20</div>
+                            <div class="metric-change positive">+4.5%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-icon">📊</div>
+                        <div class="metric-content">
+                            <h3>Confidence</h3>
+                            <div class="metric-value">97.1%</div>
+                            <div class="metric-label">Model Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Performance -->
+                <div class="performance-section">
+                    <h2>Model Performance</h2>
+                    <div class="performance-grid">
+                        <div class="performance-item">
+                            <div class="performance-label">RMSE</div>
+                            <div class="performance-value">8.131</div>
+                        </div>
+                        <div class="performance-item">
+                            <div class="performance-label">MAE</div>
+                            <div class="performance-value">5.901</div>
+                        </div>
+                        <div class="performance-item">
+                            <div class="performance-label">R² Score</div>
+                            <div class="performance-value">0.9710</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-section">
+                    <button class="action-btn primary" onclick="window.location.href='index.html'">
+                        New Prediction
+                    </button>
+                    <button class="action-btn secondary" onclick="window.print()">
+                        Export Results
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/results.js"></script>
+</body>
+</html>
