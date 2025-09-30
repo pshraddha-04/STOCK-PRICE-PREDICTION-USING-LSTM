@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockPredict - Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard_styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="dashboard.html" class="navbar-brand">StockPredict</a>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active">Start Prediction</a>
+            </li>
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Advanced Stock Price Prediction Using AI</h1>
+                <p>Advanced AI-powered LSTM models for accurate stock market predictions</p>
+                <button class="cta-button" onclick="window.location.href='index.html'">
+                    Start Prediction
+                </button>
+            </div>
+            <div class="hero-visual">
+                <div class="chart-container">
+                    <svg class="stock-chart" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background -->
+                        <rect width="400" height="300" fill="url(#bgGradient)" rx="20"/>
+                        
+                        <!-- Grid lines -->
+                        <defs>
+                            <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.1" />
+                                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.05" />
+                            </linearGradient>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#3b82f6" />
+                                <stop offset="100%" style="stop-color:#8b5cf6" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Grid -->
+                        <g stroke="rgba(59,130,246,0.1)" stroke-width="1">
+                            <line x1="50" y1="50" x2="350" y2="50"/>
+                            <line x1="50" y1="100" x2="350" y2="100"/>
+                            <line x1="50" y1="150" x2="350" y2="150"/>
+                            <line x1="50" y1="200" x2="350" y2="200"/>
+                            <line x1="50" y1="250" x2="350" y2="250"/>
+                            
+                            <line x1="50" y1="50" x2="50" y2="250"/>
+                            <line x1="125" y1="50" x2="125" y2="250"/>
+                            <line x1="200" y1="50" x2="200" y2="250"/>
+                            <line x1="275" y1="50" x2="275" y2="250"/>
+                            <line x1="350" y1="50" x2="350" y2="250"/>
+                        </g>
+                        
+                        <!-- Stock price line -->
+                        <path d="M50,200 Q100,180 125,160 T200,140 Q250,120 275,110 T350,80" 
+                              stroke="url(#lineGradient)" stroke-width="3" fill="none" 
+                              stroke-linecap="round" stroke-linejoin="round">
+                            <animate attributeName="stroke-dasharray" 
+                                     values="0,1000;1000,0" 
+                                     dur="3s" 
+                                     repeatCount="indefinite"/>
+                        </path>
+                        
+                        <!-- Data points -->
+                        <circle cx="50" cy="200" r="4" fill="#3b82f6">
+                            <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="125" cy="160" r="4" fill="#3b82f6">
+                            <animate attributeName="r" values="4;6;4" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="200" cy="140" r="4" fill="#3b82f6">
+                            <animate attributeName="r" values="4;6;4" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="275" cy="110" r="4" fill="#8b5cf6">
+                            <animate attributeName="r" values="4;6;4" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="350" cy="80" r="4" fill="#8b5cf6">
+                            <animate attributeName="r" values="4;6;4" dur="2s" begin="2s" repeatCount="indefinite"/>
+                        </circle>
+                        
+                        <!-- Labels -->
+                        <text x="200" y="30" text-anchor="middle" fill="#1e293b" font-family="Inter" font-size="16" font-weight="600">Stock Price Prediction</text>
+                        <text x="50" y="275" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Jan</text>
+                        <text x="125" y="275" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Feb</text>
+                        <text x="200" y="275" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Mar</text>
+                        <text x="275" y="275" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">Apr</text>
+                        <text x="350" y="275" text-anchor="middle" fill="#64748b" font-family="Inter" font-size="12">May</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3>LSTM Neural Networks</h3>
+                <p>Advanced deep learning models for time-series prediction</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Technical Indicators</h3>
+                <p>SMA, RSI, Bollinger Bands, MACD analysis</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3>Real-time Data</h3>
+                <p>Live stock data from Yahoo Finance API</p>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">97.1%</div>
+                <div class="stat-label">Model Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8.13</div>
+                <div class="stat-label">RMSE Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5.90</div>
+                <div class="stat-label">MAE Score</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

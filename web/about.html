@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - StockPredict</title>
+    <link rel="stylesheet" href="css/about_styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="dashboard.html" class="navbar-brand">StockPredict</a>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active">Start Prediction</a>
+            </li>
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link active">About</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle"></button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="header">
+                <div class="header-icon"></div>
+                <h1>About StockPredict</h1>
+                <p>Advanced AI-powered stock price prediction using LSTM neural networks</p>
+            </div>
+
+            <div class="content-section">
+                <div class="info-card">
+                    <h2> Project Overview</h2>
+                    <p>This project predicts Microsoft (MSFT) stock prices using Long Short-Term Memory (LSTM) networks. Stock prices are sequential in nature; hence, LSTM models are used to capture time-series dependencies better than traditional approaches.</p>
+                </div>
+
+                <div class="info-card">
+                    <h2> Why LSTM?</h2>
+                    <ul>
+                        <li>Stock prices form a <strong>time series</strong> → values depend on previous observations</li>
+                        <li><strong>Traditional models</strong> assume independence between features → not suitable for sequential dependencies</li>
+                        <li><strong>LSTMs</strong> are designed to capture <strong>long-term dependencies</strong> in sequential data</li>
+                        <li>They handle <strong>lag effects, seasonality, and patterns</strong> better than shallow models</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h2> Evaluation Metrics</h2>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <strong>RMSE</strong>
+                            <span>Easier to interpret since in stock price units</span>
+                        </div>
+                        <div class="metric">
+                            <strong>MAE</strong>
+                            <span>Average error magnitude, robust to outliers</span>
+                        </div>
+                        <div class="metric">
+                            <strong>R² Score</strong>
+                            <span>Measures explanatory power (closer to 1 = better)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h2> Results</h2>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-value">8.131</div>
+                            <div class="result-label">RMSE</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">5.901</div>
+                            <div class="result-label">MAE</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value">97.1%</div>
+                            <div class="result-label">R² Score</div>
+                        </div>
+                    </div>
+                    <p class="results-note">These metrics reflect the performance of the optimized LSTM model after hyperparameter tuning, demonstrating excellent predictive capability.</p>
+                </div>
+
+                <div class="cta-section">
+                    <button class="cta-button" onclick="window.location.href='index.html'">
+                        Try Prediction Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

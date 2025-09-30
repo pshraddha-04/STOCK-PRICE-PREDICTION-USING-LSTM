@@ -31,17 +31,17 @@ font-size: 1rem;
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar">
-    <a href="#" class="navbar-brand">StockPredict</a>
+    <a href="dashboard.html" class="navbar-brand">StockPredict</a>
 
     <ul class="navbar-nav" id="navbarNav">
       <li class="nav-item">
-        <a href="#" class="nav-link active">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">About</a>
+        <a href="about.html" class="nav-link">About</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -89,13 +89,52 @@ font-size: 1rem;
             </div>
           </div>
 
-          <button type="submit" class="generate-btn" id="generateBtn">
+          <button  type="submit" class="generate-btn" id="generateBtn">
             Generate Prediction
           </button>
         </form>
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        stockSymbol: document.getElementById('stockSymbol').value,
+        predictionDays: document.getElementById('predictionDays').value
+      };
+      
+      const button = document.getElementById('generateBtn');
+      button.textContent = 'Generating...';
+      button.disabled = true;
+      
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Store results in sessionStorage and redirect to results page
+          sessionStorage.setItem('predictionResults', JSON.stringify(result));
+          window.location.href = 'results.html';
+        } else {
+          alert('Error: ' + result.error);
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      } finally {
+        button.textContent = 'Generate Prediction';
+        button.disabled = false;
+      }
+    });
+  </script>
 </body>
 
 </html>
