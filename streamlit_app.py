@@ -393,6 +393,24 @@ def show_prediction():
     </div>
     """, unsafe_allow_html=True)
     
+    # API status check
+    api_status = check_api_status()
+    if not api_status:
+        st.error(" Flask API Connection Failed")
+        st.markdown("""
+        *To start the Flask API server:*
+        1. Open a new terminal
+        2. Navigate to the project directory
+        3. Run: cd scripts && python app.py
+        4. Wait for "Running on http://127.0.0.1:5000" message
+        5. Refresh this page
+        """)
+        
+        if st.button(" Retry Connection", use_container_width=True):
+            st.rerun()
+        return
+    else:
+        st.success(" Flask API Connected Successfully")
     
     # Handle quick symbol
     default_symbol = "MSFT"
@@ -513,18 +531,18 @@ def show_prediction_results(result):
     
     with col1:
         st.info(f"""
-        **Stock Symbol:** {result['symbol']}  
-        **Prediction Period:** {result['prediction_days']} days  
-        **Current Price:** ${result['current_price']}  
-        **Predicted Price:** ${result['predicted_price']}
+        *Stock Symbol:* {result['symbol']}  
+        *Prediction Period:* {result['prediction_days']} days  
+        *Current Price:* ${result['current_price']}  
+        *Predicted Price:* ${result['predicted_price']}
         """)
     
     with col2:
         st.info(f"""
-        **Price Change:** ${result['price_change']}  
-        **Percentage Change:** {result['percent_change']:.2f}%  
-        **Model Confidence:** {result['confidence']}%  
-        **RMSE:** {result['rmse']}
+        *Price Change:* ${result['price_change']}  
+        *Percentage Change:* {result['percent_change']:.2f}%  
+        *Model Confidence:* {result['confidence']}%  
+        *RMSE:* {result['rmse']}
         """)
     
     # Model performance info
@@ -612,7 +630,7 @@ def create_prediction_chart(result):
     st.plotly_chart(fig, use_container_width=True)
     
     price_range = max(prices) - min(prices)
-    st.info(f" **Price Range**: ${min(prices):.2f} - ${max(prices):.2f} (Range: ${price_range:.2f})")
+    st.info(f" *Price Range*: ${min(prices):.2f} - ${max(prices):.2f} (Range: ${price_range:.2f})")
 
 
 def show_about():
@@ -625,22 +643,22 @@ def show_about():
     st.markdown("""
     ##  Project Overview
     
-    StockPredict AI is an advanced stock price prediction system that uses **Long Short-Term Memory (LSTM)** 
+    StockPredict AI is an advanced stock price prediction system that uses *Long Short-Term Memory (LSTM)* 
     neural networks to forecast stock prices with high accuracy.
     
     ###  Technical Features
     
-    - **Deep Learning**: LSTM neural networks optimized for time-series prediction
-    - **Technical Analysis**: Integration of RSI, MACD, SMA, and Bollinger Bands
-    - **Real-time Data**: Live stock data from Yahoo Finance API
-    - **High Accuracy**: 97.1% R² score with RMSE of 8.13
+    - *Deep Learning*: LSTM neural networks optimized for time-series prediction
+    - *Technical Analysis*: Integration of RSI, MACD, SMA, and Bollinger Bands
+    - *Real-time Data*: Live stock data from Yahoo Finance API
+    - *High Accuracy*: 97.1% R² score with RMSE of 8.13
     
     ###  Model Architecture
     
-    - **Input Features**: Close, Open, Volume, RSI_14, MACD, MACD_Hist
-    - **Sequence Length**: 60-day lookback window
-    - **LSTM Units**: 150 units with 0.2 dropout
-    - **Training Data**: Microsoft (MSFT) stock data (2020-2025)
+    - *Input Features*: Close, Open, Volume, RSI_14, MACD, MACD_Hist
+    - *Sequence Length*: 60-day lookback window
+    - *LSTM Units*: 150 units with 0.2 dropout
+    - *Training Data*: Microsoft (MSFT) stock data (2020-2025)
     
     ###  Use Cases
     
@@ -680,7 +698,7 @@ def show_performance():
     
     with col1:
         st.info("""
-        **LSTM Configuration:**
+        *LSTM Configuration:*
         - Units: 150
         - Dropout: 0.2
         - Dense Units: 50
@@ -691,7 +709,7 @@ def show_performance():
     
     with col2:
         st.info("""
-        **Training Details:**
+        *Training Details:*
         - Dataset: Microsoft (MSFT)
         - Period: 2020-2025
         - Features: 6 technical indicators
@@ -737,7 +755,7 @@ def show_footer():
     </div>
     """, unsafe_allow_html=True)
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     try:
         main()
         show_footer()
