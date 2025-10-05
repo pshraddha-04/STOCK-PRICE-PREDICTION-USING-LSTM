@@ -120,7 +120,7 @@ def predict():
 
 @app.route('/')
 def home():
-    return send_from_directory('../web', 'index.html')
+    return send_from_directory('../web', 'dashboard.html')
 
 @app.route('/index.html')
 def index():
