@@ -558,7 +558,9 @@ def show_prediction_results(result):
     # Visualization
     create_prediction_chart(result)
     
-   
+    # Download results
+    st.markdown("---")
+    download_report(result)
 
 def create_prediction_chart(result):
     st.subheader(" Price Prediction Visualization")
@@ -632,6 +634,32 @@ def create_prediction_chart(result):
     price_range = max(prices) - min(prices)
     st.info(f" *Price Range*: ${min(prices):.2f} - ${max(prices):.2f} (Range: ${price_range:.2f})")
 
+def download_report(result):
+    """Generate downloadable prediction report"""
+    report_data = {
+        'Stock Symbol': result['symbol'],
+        'Prediction Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'Prediction Period (Days)': result['prediction_days'],
+        'Current Price ($)': result['current_price'],
+        'Predicted Price ($)': result['predicted_price'],
+        'Price Change ($)': result['price_change'],
+        'Percentage Change (%)': result['percent_change'],
+        'Model Confidence (%)': result['confidence'],
+        'RMSE': result['rmse'],
+        'MAE': result['mae'],
+        'R² Score': result['r2_score']
+    }
+    
+    report_df = pd.DataFrame([report_data])
+    csv = report_df.to_csv(index=False)
+    
+    st.download_button(
+        label="📥 Download CSV Report",
+        data=csv,
+        file_name=f"{result['symbol']}prediction_report{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
 
 def show_about():
     st.markdown("""
@@ -755,7 +783,7 @@ def show_footer():
     </div>
     """, unsafe_allow_html=True)
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     try:
         main()
         show_footer()
