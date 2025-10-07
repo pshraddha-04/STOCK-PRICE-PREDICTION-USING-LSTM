@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 from sklearn.preprocessing import MinMaxScaler
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import os
 
 app = Flask(__name__)
@@ -35,6 +38,56 @@ def calculate_macd(prices, fast=12, slow=26, signal=9):
     macd_signal = macd.ewm(span=signal).mean()
     macd_hist = macd - macd_signal
     return macd, macd_hist
+
+def send_email(name, email, subject, message):
+    # Email configuration - replace with your email settings
+    smtp_server = "smtp.gmail.com"
+    smtp_port = 587
+    sender_email = "your-email@gmail.com"  # Replace with your email
+    sender_password = "your-app-password"   # Replace with your app password
+    recipient_email = "recipient@gmail.com"  # Replace with recipient email
+    
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = f"Contact Form: {subject}"
+    
+    body = f"""
+    New contact form submission:
+    
+    Name: {name}
+    Email: {email}
+    Subject: {subject}
+    
+    Message:
+    {message}
+    """
+    
+    msg.attach(MIMEText(body, 'plain'))
+    
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+    server.login(sender_email, sender_password)
+    server.send_message(msg)
+    server.quit()
+
+@app.route("/contact", methods=["POST"])
+def contact_form():
+    try:
+        data = request.get_json()
+        name = data.get('name')
+        email = data.get('email')
+        subject = data.get('subject')
+        message = data.get('message')
+        
+        if not all([name, email, subject, message]):
+            return jsonify({"error": "All fields are required"}), 400
+        
+        send_email(name, email, subject, message)
+        return jsonify({"success": True, "message": "Email sent successfully!"})
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -135,8 +188,12 @@ def about():
     return send_from_directory('../web', 'about.html')
 
 @app.route('/contact.html')
-def contact():
+def contact_page():
     return send_from_directory('../web', 'contact.html')
+
+@app.route('/features.html')
+def features():
+    return send_from_directory('../web', 'features.html')
 
 @app.route('/results.html')
 def results():
