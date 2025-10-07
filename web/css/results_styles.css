@@ -497,6 +497,20 @@ body::before {
   }
 }
 
+footer {
+  background: rgba(30, 41, 59, 0.95);
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 0 5%;
