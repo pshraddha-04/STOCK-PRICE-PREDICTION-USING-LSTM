@@ -59,7 +59,7 @@ st.markdown("""
     .sidebar-brand {
         text-align: center;
         padding: 2rem 1rem;
-        color: white;
+        color: #1e40af;
         font-size: 1.5rem;
         font-weight: 700;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);

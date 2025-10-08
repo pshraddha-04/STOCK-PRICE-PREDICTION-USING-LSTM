@@ -47,16 +47,16 @@ body::before {
   left: 0;
   right: 0;
   height: 90px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(30, 41, 59, 0.95);
   backdrop-filter: blur(30px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 5%;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-brand {
@@ -64,7 +64,7 @@ body::before {
   align-items: center;
   gap: 15px;
   text-decoration: none;
-  color: #1e293b;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1.75rem;
   letter-spacing: -0.02em;
@@ -99,7 +99,7 @@ body::before {
   display: flex;
   align-items: center;
   padding: 14px 24px;
-  color: rgba(30, 41, 59, 0.8);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-weight: 500;
   font-size: 1rem;
@@ -116,16 +116,16 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
   opacity: 0;
   transition: all 0.4s ease;
   border-radius: 50px;
 }
 
 .nav-link:hover {
-  color: #1e293b;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 .nav-link:hover::before {
@@ -133,9 +133,9 @@ body::before {
 }
 
 .nav-link.active {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: #ffffff;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
   transform: translateY(-1px);
 }
 
@@ -143,7 +143,7 @@ body::before {
   display: none;
   background: none;
   border: none;
-  color: #1e293b;
+  color: #ffffff;
   font-size: 1.8rem;
   cursor: pointer;
   padding: 12px;
@@ -152,7 +152,7 @@ body::before {
 }
 
 .mobile-menu-toggle:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   transform: scale(1.1);
 }
 
@@ -459,9 +459,9 @@ footer p {
     top: 80px;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(15, 15, 35, 0.98);
     backdrop-filter: blur(30px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     flex-direction: column;
     padding: 30px 5%;
     gap: 15px;
