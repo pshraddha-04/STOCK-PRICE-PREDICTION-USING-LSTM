@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update performance metrics
     const performanceItems = document.querySelectorAll('.performance-item');
-    performanceItems[0].querySelector('.performance-value').textContent = results.rmse;
-    performanceItems[1].querySelector('.performance-value').textContent = results.mae;
+    performanceItems[0].querySelector('.performance-value').textContent = `$${results.rmse}`;
+    performanceItems[1].querySelector('.performance-value').textContent = `$${results.mae}`;
     performanceItems[2].querySelector('.performance-value').textContent = results.r2_score;
 });

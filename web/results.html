@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Results - StockPredict</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/results_styles.css">
 </head>
 <body>
@@ -22,6 +26,9 @@
             </li>
             <li class="nav-item">
                 <a href="contact.html" class="nav-link">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">Start Prediction</a>
             </li>
         </ul>
         <button class="mobile-menu-toggle" id="mobileMenuToggle"></button>
@@ -149,16 +156,16 @@
                 </div>
 
                 <!-- Model Performance -->
-                <div class="performance-section">
-                    <h2>Model Performance</h2>
+                <div class="performance-section section">
+                    <h2 class="section-title">Model Performance</h2>
                     <div class="performance-grid">
                         <div class="performance-item">
                             <div class="performance-label">RMSE</div>
-                            <div class="performance-value">8.131</div>
+                            <div class="performance-value">$8.131</div>
                         </div>
                         <div class="performance-item">
                             <div class="performance-label">MAE</div>
-                            <div class="performance-value">5.901</div>
+                            <div class="performance-value">$5.901</div>
                         </div>
                         <div class="performance-item">
                             <div class="performance-label">R² Score</div>
@@ -169,10 +176,10 @@
 
                 <!-- Action Buttons -->
                 <div class="action-section">
-                    <button class="action-btn primary" onclick="window.location.href='index.html'">
+                    <button class="btn btn-primary btn-md" onclick="window.location.href='index.html'">
                         New Prediction
                     </button>
-                    <button class="action-btn secondary" onclick="window.print()">
+                    <button class="btn btn-secondary btn-md" onclick="window.print()">
                         Export Results
                     </button>
                 </div>

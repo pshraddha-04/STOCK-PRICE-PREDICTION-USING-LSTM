@@ -116,6 +116,10 @@ st.markdown("""
         margin: 1.5rem 0;
         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     
     .feature-card:hover {
@@ -498,12 +502,11 @@ def show_prediction_results(result):
         st.metric("Current Price", f"${result['current_price']}")
     
     with col2:
-        delta_color = "normal" if result['price_change'] >= 0 else "inverse"
+        price_change = float(result['price_change'])
         st.metric(
             "Predicted Price", 
             f"${result['predicted_price']}", 
-            f"${result['price_change']}",
-            delta_color=delta_color
+            f"{price_change:.2f}"
         )
     
     with col3:

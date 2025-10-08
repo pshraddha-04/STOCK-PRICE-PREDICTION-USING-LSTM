@@ -40,12 +40,15 @@ def calculate_macd(prices, fast=12, slow=26, signal=9):
     return macd, macd_hist
 
 def send_email(name, email, subject, message):
-    # Email configuration - replace with your email settings
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    sender_email = "your-email@gmail.com"  # Replace with your email
-    sender_password = "your-app-password"   # Replace with your app password
-    recipient_email = "recipient@gmail.com"  # Replace with recipient email
+    # Email configuration
+    smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+    smtp_port = int(os.getenv('SMTP_PORT', 587))
+    sender_email = os.getenv('SENDER_EMAIL')  # Set in environment
+    sender_password = os.getenv('SENDER_PASSWORD')  # App password
+    recipient_email = os.getenv('RECIPIENT_EMAIL')  # Where to receive messages
+    
+    if not all([sender_email, sender_password, recipient_email]):
+        raise ValueError("Email configuration missing. Set SENDER_EMAIL, SENDER_PASSWORD, RECIPIENT_EMAIL environment variables.")
     
     msg = MIMEMultipart()
     msg['From'] = sender_email
