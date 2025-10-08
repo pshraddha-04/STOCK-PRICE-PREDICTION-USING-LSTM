@@ -189,6 +189,32 @@
   line-height: 1.6;
 }
 
+.methodology-steps {
+  display: grid;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.step-item {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 20px 25px;
+  border-radius: 15px;
+  border-left: 4px solid;
+  border-image: linear-gradient(135deg, #3b82f6, #8b5cf6) 1;
+  color: rgba(30, 41, 59, 0.8);
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.step-item:hover {
+  transform: translateX(10px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
 .cta-section {
   text-align: center;
   margin-top: 60px;
