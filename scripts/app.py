@@ -102,6 +102,59 @@ def contact_form():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/market-data", methods=["GET"])
+def get_market_data():
+    try:
+        symbols = ['AAPL', 'AMZN', 'GOOGL', 'META', 'MSFT', 'NFLX', 'NVDA', 'TSLA']
+        indices = ['^GSPC', '^IXIC', '^DJI']  # S&P 500, NASDAQ, DOW
+        
+        market_data = {'stocks': [], 'indices': []}
+        
+        # Fetch stock data
+        for symbol in symbols:
+            try:
+                stock = yf.Ticker(symbol)
+                hist = stock.history(period="2d")
+                if len(hist) >= 2:
+                    current_price = hist['Close'].iloc[-1]
+                    prev_price = hist['Close'].iloc[-2]
+                    change_pct = ((current_price - prev_price) / prev_price) * 100
+                    
+                    market_data['stocks'].append({
+                        'symbol': symbol,
+                        'price': round(current_price, 2),
+                        'change': round(change_pct, 2)
+                    })
+            except:
+                continue
+        
+        # Fetch index data
+        index_names = ['S&P 500', 'NASDAQ', 'DOW']
+        for i, index_symbol in enumerate(indices):
+            try:
+                index = yf.Ticker(index_symbol)
+                hist = index.history(period="2d")
+                if len(hist) >= 2:
+                    current_value = hist['Close'].iloc[-1]
+                    prev_value = hist['Close'].iloc[-2]
+                    change_pct = ((current_value - prev_value) / prev_value) * 100
+                    
+                    market_data['indices'].append({
+                        'name': index_names[i],
+                        'value': round(current_value, 2),
+                        'change': round(change_pct, 2)
+                    })
+            except:
+                continue
+        
+        return jsonify({
+            "success": True,
+            "data": market_data
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/indicators", methods=["POST"])
 def get_indicators():
     try:

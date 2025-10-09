@@ -29,7 +29,7 @@
                 <a href="contact.html" class="nav-link">Contact</a>
             </li>
             <li class="nav-item">
-                <a href="index.html" class="nav-link">Start Prediction</a>
+                <a href="index.html" class="nav-link cta-button">Start Prediction</a>
             </li>
         </ul>
         <button class="mobile-menu-toggle" id="mobileMenuToggle"></button>
@@ -118,35 +118,145 @@
         </div>
 
         <div class="features-section">
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
-                <h3>LSTM Neural Networks</h3>
-                <p>Advanced deep learning models for time-series prediction</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Technical Indicators</h3>
-                <p>SMA, RSI, Bollinger Bands, MACD analysis</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📈</div>
-                <h3>Real-time Data</h3>
-                <p>Live stock data from Yahoo Finance API</p>
+            <h2 class="features-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>LSTM Neural Networks</h3>
+                    <p>Advanced deep learning models for time-series prediction</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Technical Indicators</h3>
+                    <p>SMA, RSI, Bollinger Bands, MACD analysis</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Real-time Data</h3>
+                    <p>Live stock data from Yahoo Finance API</p>
+                </div>
             </div>
         </div>
 
+        <!-- Live Market Data Section -->
+        <div class="market-data-section">
+            <h2>Live Market Data - Popular Stocks</h2>
+            <div class="market-status">
+                <span id="marketStatus">Market Status: <span id="statusText">Loading...</span></span>
+                <span id="marketTimer"></span>
+            </div>
+            <div class="stock-ticker">
+                <div class="ticker-item" data-symbol="AAPL">
+                    <span class="symbol">AAPL</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="AMZN">
+                    <span class="symbol">AMZN</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="GOOGL">
+                    <span class="symbol">GOOGL</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="META">
+                    <span class="symbol">META</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="MSFT">
+                    <span class="symbol">MSFT</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="NFLX">
+                    <span class="symbol">NFLX</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="NVDA">
+                    <span class="symbol">NVDA</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+                <div class="ticker-item" data-symbol="TSLA">
+                    <span class="symbol">TSLA</span>
+                    <span class="price"></span>
+                    <span class="change">--</span>
+                </div>
+            </div>
+            <div class="market-indices">
+                <div class="index-item">
+                    <span class="index-name">S&P 500</span>
+                    <span class="index-value">5,845.23</span>
+                    <span class="index-change positive">+0.45%</span>
+                </div>
+                <div class="index-item">
+                    <span class="index-name">NASDAQ</span>
+                    <span class="index-value">18,967.45</span>
+                    <span class="index-change positive">+0.78%</span>
+                </div>
+                <div class="index-item">
+                    <span class="index-name">DOW</span>
+                    <span class="index-value">42,156.78</span>
+                    <span class="index-change negative">-0.12%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works Section -->
+        <div class="how-it-works-section">
+            <h2>How It Works</h2>
+            <div class="process-steps">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📝</div>
+                    <h3>Enter Symbol</h3>
+                    <p>Type any stock symbol like AAPL, GOOGL, or MSFT</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🤖</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our LSTM model analyzes patterns and technical indicators</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">📈</div>
+                    <h3>Get Prediction</h3>
+                    <p>Receive accurate price forecasts with 97.1% accuracy</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">💾</div>
+                    <h3>Export Results</h3>
+                    <p>Download predictions as CSV for further analysis</p>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="stats-section">
-            <div class="stat-item">
-                <div class="stat-number">97.1%</div>
-                <div class="stat-label">Model Accuracy</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">8.13</div>
-                <div class="stat-label">RMSE Score</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">5.90</div>
-                <div class="stat-label">MAE Score</div>
+            <h2 class="stats-title">Model Performance</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">97.1%</div>
+                    <div class="stat-label">Model Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8.13</div>
+                    <div class="stat-label">RMSE Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5.90</div>
+                    <div class="stat-label">MAE Score</div>
+                </div>
             </div>
         </div>
     </div>

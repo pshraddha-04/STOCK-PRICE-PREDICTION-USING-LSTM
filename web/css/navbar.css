@@ -97,6 +97,22 @@
   transform: translateY(-1px);
 }
 
+.nav-link.cta-button {
+  background: var(--primary-gradient);
+  color: var(--white);
+  font-weight: var(--font-weight-bold);
+  padding: 14px 20px;
+}
+
+.nav-link.cta-button:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  transform: translateY(-2px);
+}
+
+.nav-link.cta-button::before {
+  display: none;
+}
+
 .mobile-menu-toggle {
   display: none;
   background: none;
@@ -136,6 +152,11 @@
     opacity: 0;
     visibility: hidden;
     transition: var(--transition-smooth);
+  }
+
+  .nav-link.cta-button {
+    padding: 18px 32px;
+    margin-top: 10px;
   }
 
   .navbar-nav.active {
