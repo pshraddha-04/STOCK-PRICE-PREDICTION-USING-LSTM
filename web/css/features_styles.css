@@ -1,8 +1,21 @@
 /* Features Page Specific Styles */
+
+/* Remove floating container effect */
 .container {
-  animation: slideUp 0.8s ease-out;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  max-width: none !important;
 }
 
+.main-content {
+  align-items: flex-start !important;
+  min-height: auto !important;
+  padding: 120px 5% 40px !important;
+}
 /* Features page uses standardized header from base.css with custom icon */
 .header-icon::before {
   content: '⚡';
@@ -16,12 +29,12 @@
 }
 
 .feature-item {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  padding: 40px 30px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s ease;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -87,11 +100,11 @@
 
 .step {
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  padding: 30px 20px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -174,8 +187,7 @@
 }
 
 .cta-button:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .cta-button:hover::before {

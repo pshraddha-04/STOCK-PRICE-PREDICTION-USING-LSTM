@@ -230,3 +230,57 @@ footer p {
     max-width: 300px;
   }
 }
+
+/* Technical Indicators Styles */
+.indicators-section {
+  margin-top: 2rem;
+}
+
+.indicator-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.indicator-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.indicator-checkbox input[type="checkbox"] {
+  margin: 0;
+}
+
+.indicator-charts {
+  display: grid;
+  gap: 2rem;
+}
+
+.indicator-charts .chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.indicator-charts .chart-container canvas {
+  max-height: 400px;
+}
+/* Larger checkboxes and text for technical indicators */
+.indicator-checkbox {
+  gap: 0.75rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+}
+
+.indicator-checkbox input[type="checkbox"] {
+  width: 18px !important;
+  height: 18px !important;
+  transform: scale(1.2) !important;
+}

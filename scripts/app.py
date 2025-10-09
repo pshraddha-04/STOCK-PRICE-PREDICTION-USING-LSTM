@@ -37,7 +37,17 @@ def calculate_macd(prices, fast=12, slow=26, signal=9):
     macd = ema_fast - ema_slow
     macd_signal = macd.ewm(span=signal).mean()
     macd_hist = macd - macd_signal
-    return macd, macd_hist
+    return macd, macd_signal, macd_hist
+
+def calculate_sma(prices, window=20):
+    return prices.rolling(window=window).mean()
+
+def calculate_bollinger_bands(prices, window=20, std_dev=2):
+    sma = prices.rolling(window=window).mean()
+    std = prices.rolling(window=window).std()
+    upper = sma + (std * std_dev)
+    lower = sma - (std * std_dev)
+    return upper, sma, lower
 
 def send_email(name, email, subject, message):
     # Email configuration
@@ -92,6 +102,47 @@ def contact_form():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/indicators", methods=["POST"])
+def get_indicators():
+    try:
+        data = request.get_json()
+        symbol = data['stockSymbol'].upper()
+        
+        stock = yf.Ticker(symbol)
+        hist = stock.history(period="6mo")
+        
+        if hist.empty:
+            return jsonify({"error": f"No data found for symbol {symbol}"}), 400
+        
+        # Calculate indicators
+        hist['SMA_20'] = calculate_sma(hist['Close'], 20)
+        hist['SMA_50'] = calculate_sma(hist['Close'], 50)
+        hist['RSI_14'] = calculate_rsi(hist['Close'])
+        hist['BB_Upper'], hist['BB_Middle'], hist['BB_Lower'] = calculate_bollinger_bands(hist['Close'])
+        hist['MACD'], hist['MACD_Signal'], hist['MACD_Hist'] = calculate_macd(hist['Close'])
+        
+        # Get last 60 days for display
+        recent_data = hist.tail(60)
+        
+        return jsonify({
+            "success": True,
+            "symbol": symbol,
+            "dates": recent_data.index.strftime('%Y-%m-%d').tolist(),
+            "close": recent_data['Close'].round(2).tolist(),
+            "sma_20": recent_data['SMA_20'].round(2).tolist(),
+            "sma_50": recent_data['SMA_50'].round(2).tolist(),
+            "rsi": recent_data['RSI_14'].round(2).tolist(),
+            "bb_upper": recent_data['BB_Upper'].round(2).tolist(),
+            "bb_middle": recent_data['BB_Middle'].round(2).tolist(),
+            "bb_lower": recent_data['BB_Lower'].round(2).tolist(),
+            "macd": recent_data['MACD'].round(4).tolist(),
+            "macd_signal": recent_data['MACD_Signal'].round(4).tolist(),
+            "macd_hist": recent_data['MACD_Hist'].round(4).tolist()
+        })
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
@@ -109,10 +160,17 @@ def predict():
         
         if hist.empty:
             return jsonify({"error": f"No data found for symbol {symbol}"}), 400
+        
+        # Get stock info for company name
+        try:
+            stock_info = stock.info
+            company_name = stock_info.get('longName', symbol)
+        except:
+            company_name = symbol
             
    
         hist['RSI_14'] = calculate_rsi(hist['Close'])
-        hist['MACD'], hist['MACD_Hist'] = calculate_macd(hist['Close'])
+        hist['MACD'], hist['MACD_Signal'], hist['MACD_Hist'] = calculate_macd(hist['Close'])
         hist = hist.dropna()
         
         if len(hist) < 60:
@@ -160,6 +218,7 @@ def predict():
         return jsonify({
             "success": True,
             "symbol": symbol,
+            "company_name": company_name,
             "prediction_days": prediction_days,
             "current_price": round(current_price, 2),
             "predicted_price": round(final_prediction, 2),

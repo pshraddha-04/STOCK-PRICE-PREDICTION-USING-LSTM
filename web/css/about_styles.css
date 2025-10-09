@@ -1,7 +1,20 @@
 /* About Page Specific Styles */
+
+/* Remove floating container effect */
 .container {
-  max-width: 1000px;
-  animation: slideUp 0.8s ease-out;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  max-width: none !important;
+}
+
+.main-content {
+  align-items: flex-start !important;
+  min-height: auto !important;
+  padding: 120px 5% 40px !important;
 }
 
 /* About page uses standardized header from base.css with custom icon */
