@@ -30,11 +30,16 @@ X_TEST_PATH = os.path.join(DATA_DIR, "X_test.npy")
 y_TEST_PATH = os.path.join(DATA_DIR, "y_test.npy")
 TARGET_SCALER_PATH = os.path.join(DATA_DIR, "scalers", "Close_scaler.pkl")
 
-# Load sequences
-X_train = np.load(X_TRAIN_PATH)
-y_train = np.load(y_TRAIN_PATH)
-X_test = np.load(X_TEST_PATH)
-y_test = np.load(y_TEST_PATH)
+# Load sequences with error handling
+try:
+    X_train = np.load(X_TRAIN_PATH)
+    y_train = np.load(y_TRAIN_PATH)
+    X_test = np.load(X_TEST_PATH)
+    y_test = np.load(y_TEST_PATH)
+    print("[SUCCESS] Training data loaded successfully")
+except Exception as e:
+    print(f"[ERROR] Error loading training data: {e}")
+    exit(1)
 
 print("Train shape:", X_train.shape, y_train.shape)
 print("Test shape:", X_test.shape, y_test.shape)

@@ -62,19 +62,38 @@ function quickPredict(symbol) {
     window.location.href = 'index.html';
 }
 
-// Fetch live market data
+// Fetch live market data with improved error handling
 function fetchLiveMarketData() {
-    fetch('/market-data')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                updateStockTicker(data.data.stocks);
-                updateMarketIndices(data.data.indices);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching market data:', error);
-        });
+    fetch('/market-data', {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success && data.data) {
+            if (data.data.stocks) updateStockTicker(data.data.stocks);
+            if (data.data.indices) updateMarketIndices(data.data.indices);
+        } else {
+            console.warn('Market data fetch succeeded but no data received');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching market data:', error);
+        // Optionally show user-friendly error message
+        const statusElement = document.getElementById('statusText');
+        if (statusElement) {
+            statusElement.textContent = 'DATA ERROR';
+            statusElement.style.color = '#ef4444';
+        }
+    });
 }
 
 // Update stock ticker with real data

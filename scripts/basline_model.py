@@ -82,17 +82,30 @@ def walk_forward_validation(df: pd.DataFrame, target_col: str = "Close", n_lags:
     df_lag = create_lag_features_wf(df, target_col, n_lags)
     X = df_lag[[f"Lag_{i}" for i in range(1, n_lags + 1)]].values
     y = df_lag[target_col].values
+    
+    # Optimize: fit scaler once
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
+    
     predictions, actuals = [], []
+    
+    # Optimize: pre-allocate arrays
+    n_predictions = len(X) - n_lags
+    predictions = np.zeros(n_predictions)
+    actuals = np.zeros(n_predictions)
+    
     for i in range(n_lags, len(X)):
         X_train, y_train = X[:i], y[:i]
-        X_test, y_test = X[i].reshape(1, -1), y[i]
+        X_test, y_test = X[i:i+1], y[i]  # Avoid reshape
+        
         model = LinearRegression() if model_type == "linear" else Ridge(alpha=1.0)
         model.fit(X_train, y_train)
-        y_pred = model.predict(X_test)
-        predictions.append(y_pred[0])
-        actuals.append(y_test)
+        y_pred = model.predict(X_test)[0]
+        
+        idx = i - n_lags
+        predictions[idx] = y_pred
+        actuals[idx] = y_test
+    
     rmse = float(np.sqrt(mean_squared_error(actuals, predictions)))
     mae = float(mean_absolute_error(actuals, predictions))
     return rmse, mae

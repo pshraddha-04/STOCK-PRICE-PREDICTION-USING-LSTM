@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
+from flask_talisman import Talisman
 import joblib
 import numpy as np
 import pandas as pd
@@ -15,18 +16,36 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# Add security headers
+Talisman(app, 
+    force_https=False,  # Set to True in production
+    content_security_policy={
+        'default-src': "'self'",
+        'script-src': "'self' 'unsafe-inline' https://cdn.jsdelivr.net",
+        'style-src': "'self' 'unsafe-inline'",
+        'img-src': "'self' data:",
+        'connect-src': "'self'"
+    }
+)
+
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "best_lstm_model.pkl")
 SCALER_DIR = os.path.join(BASE_DIR, "data", "scalers")
 
-# Load model and scalers
-model = joblib.load(MODEL_PATH)
-scalers = {}
-feature_names = ["Close", "Open", "Volume", "RSI_14", "MACD", "MACD_Hist"]
-for feature in feature_names:
-    scaler_path = os.path.join(SCALER_DIR, f"{feature}_scaler.pkl")
-    scalers[feature] = joblib.load(scaler_path)
+# Load model and scalers with error handling
+try:
+    model = joblib.load(MODEL_PATH)
+    scalers = {}
+    feature_names = ["Close", "Open", "Volume", "RSI_14", "MACD", "MACD_Hist"]
+    for feature in feature_names:
+        scaler_path = os.path.join(SCALER_DIR, f"{feature}_scaler.pkl")
+        scalers[feature] = joblib.load(scaler_path)
+    print("[SUCCESS] Model and scalers loaded successfully")
+except Exception as e:
+    print(f"[ERROR] Error loading model/scalers: {e}")
+    model = None
+    scalers = {}
 
 def calculate_rsi(prices, window=14):
     delta = prices.diff()
@@ -203,13 +222,23 @@ def get_indicators():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
+        # Check if model is loaded
+        if model is None or not scalers:
+            return jsonify({"error": "Model not loaded. Please restart the server."}), 500
+            
         data = request.get_json()
         
         if not data or 'stockSymbol' not in data:
             return jsonify({"error": "Stock symbol is required"}), 400
             
         symbol = data['stockSymbol'].upper()
-        prediction_days = int(data.get('predictionDays', 1))
+        
+        try:
+            prediction_days = int(data.get('predictionDays', 1))
+            if prediction_days < 1 or prediction_days > 365:
+                return jsonify({"error": "Prediction days must be between 1 and 365"}), 400
+        except (ValueError, TypeError):
+            return jsonify({"error": "Invalid prediction days value"}), 400
         
        
         stock = yf.Ticker(symbol)
@@ -222,8 +251,9 @@ def predict():
         try:
             stock_info = stock.info
             company_name = stock_info.get('longName', symbol)
-        except:
+        except Exception as e:
             company_name = symbol
+            print(f"[WARNING] Could not fetch company info for {symbol}: {e}")
             
    
         hist['RSI_14'] = calculate_rsi(hist['Close'])

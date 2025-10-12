@@ -34,12 +34,17 @@ BEST_MODEL_DIR = "models"
 os.makedirs(BEST_MODEL_DIR, exist_ok=True)
 BEST_MODEL_PATH = os.path.join(BEST_MODEL_DIR, "best_lstm_model.keras")  # path to save best model
 
-# Load data
-X_train = np.load(X_TRAIN_PATH)
-y_train = np.load(y_TRAIN_PATH)
-X_test = np.load(X_TEST_PATH)
-y_test = np.load(y_TEST_PATH)
-target_scaler = joblib.load(TARGET_SCALER_PATH)
+# Load data with error handling
+try:
+    X_train = np.load(X_TRAIN_PATH)
+    y_train = np.load(y_TRAIN_PATH)
+    X_test = np.load(X_TEST_PATH)
+    y_test = np.load(y_TEST_PATH)
+    target_scaler = joblib.load(TARGET_SCALER_PATH)
+    print("[SUCCESS] Data loaded successfully")
+except Exception as e:
+    print(f"[ERROR] Error loading data: {e}")
+    exit(1)
 
 # Hyperparameter search space
 param_distributions = {
@@ -117,20 +122,23 @@ for trial in range(N_TRIALS):
         best_rmse = rmse
         best_params_saved = params.copy() 
         model.save(BEST_MODEL_PATH)
-        print(f"✅ New best model saved at {BEST_MODEL_PATH} with RMSE={best_rmse:.4f}")
+        print(f" New best model saved at {BEST_MODEL_PATH} with RMSE={best_rmse:.4f}")
 
 
-# results
-results_df = pd.DataFrame(results)
-results_path = os.path.join(DATA_DIR, "random_search_results.csv")
-results_df.to_csv(results_path, index=False)
-
-print("\n Random Search complete. Results saved to:", results_path)
-
-# Save best hyperparameters for reference
-best_params_df = pd.DataFrame([best_params_saved])
-best_params_path = os.path.join(DATA_DIR, "best_hyperparameters.csv")
-best_params_df.to_csv(best_params_path, index=False)
-print(f"Best hyperparameters saved to: {best_params_path}")
+# Save results with error handling
+try:
+    results_df = pd.DataFrame(results)
+    results_path = os.path.join(DATA_DIR, "random_search_results.csv")
+    results_df.to_csv(results_path, index=False)
+    print("\n[SUCCESS] Random Search complete. Results saved to:", results_path)
+    
+    # Save best hyperparameters for reference
+    if best_params_saved:
+        best_params_df = pd.DataFrame([best_params_saved])
+        best_params_path = os.path.join(DATA_DIR, "best_hyperparameters.csv")
+        best_params_df.to_csv(best_params_path, index=False)
+        print(f"[SUCCESS] Best hyperparameters saved to: {best_params_path}")
+except Exception as e:
+    print(f"[ERROR] Error saving results: {e}")
 
 print(results_df.sort_values(by="rmse").head(5))  # show best 5 trials

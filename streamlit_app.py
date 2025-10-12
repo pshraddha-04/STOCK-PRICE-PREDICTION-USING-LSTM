@@ -6,6 +6,11 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import time
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Page configuration
 st.set_page_config(

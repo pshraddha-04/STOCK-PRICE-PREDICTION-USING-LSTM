@@ -46,8 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch('/indicators', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ stockSymbol: results.symbol })
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ stockSymbol: results.symbol }),
+                credentials: 'same-origin'
             });
             
             indicatorData = await response.json();
@@ -251,8 +255,12 @@ function initializePriceChart() {
     // Fetch recent price data for chart
     fetch('/indicators', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stockSymbol: results.symbol })
+        headers: { 
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ stockSymbol: results.symbol }),
+        credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(data => {

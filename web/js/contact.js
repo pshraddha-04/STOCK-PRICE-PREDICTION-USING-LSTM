@@ -35,8 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(formData),
+                    credentials: 'same-origin'
                 });
                 
                 const result = await response.json();
