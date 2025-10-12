@@ -65,6 +65,7 @@
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .nav-link::before {
@@ -98,15 +99,24 @@
 }
 
 .nav-link.cta-button {
-  background: var(--primary-gradient);
-  color: var(--white);
+  border: 2px solid var(--primary-blue);
+  background: transparent;
+  color: var(--primary-blue);
   font-weight: var(--font-weight-bold);
-  padding: 14px 20px;
+  padding: 16px 26px;
+  box-sizing: border-box;
 }
 
 .nav-link.cta-button:hover {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: var(--primary-gradient);
+  color: var(--white);
   transform: translateY(-2px);
+}
+
+.nav-link.cta-button.active {
+  background: var(--primary-gradient);
+  color: var(--white);
+  border: 2px solid transparent;
 }
 
 .nav-link.cta-button::before {
@@ -155,7 +165,7 @@
   }
 
   .nav-link.cta-button {
-    padding: 18px 32px;
+    padding: 16px 30px;
     margin-top: 10px;
   }
 

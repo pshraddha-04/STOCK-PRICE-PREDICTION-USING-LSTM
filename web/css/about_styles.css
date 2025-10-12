@@ -233,7 +233,7 @@
   margin-top: 60px;
 }
 
-.cta-button {
+.cta-section .cta-button {
   background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: #ffffff;
   border: none;
@@ -250,7 +250,7 @@
   overflow: hidden;
 }
 
-.cta-button::before {
+.cta-section .cta-button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -261,12 +261,12 @@
   transition: left 0.6s;
 }
 
-.cta-button:hover {
+.cta-section .cta-button:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 25px 50px rgba(59, 130, 246, 0.6);
 }
 
-.cta-button:hover::before {
+.cta-section .cta-button:hover::before {
   left: 100%;
 }
 
